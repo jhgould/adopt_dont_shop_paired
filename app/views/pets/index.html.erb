@@ -1,0 +1,19 @@
+<h1>All Pets</h1>
+
+<div class="pets_list">
+  <% @pets.each do |pet| %>
+    <ul class="pet_profile">
+      <img src="<%= pet.image_path %>" alt="<%= pet.image_path %>" class="pet_index_image">
+      <li>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></li>
+      <li>Approximate age: <%= pet.approximate_age %></li>
+      <li>Sex: <%= pet.sex %></li>
+      <li>Shelter: <%= link_to "#{pet.shelter.name}", "/shelters/#{pet.shelter.id}" %></li>
+      <li><%= link_to "Update Pet", "/pets/#{pet.id}/edit", id: "update-pet-#{pet.id}"%></li>
+      <li><%= link_to "Delete Pet", "/pets/#{pet.id}", id: "delete-pet-#{pet.id}", method: :delete %></li>
+    </ul>
+    <br>
+  <% end %>
+</div>
+
+<%= link_to "Show Adoptable Pets Only", "/pets?adoption_status=true" %>
+<%= link_to "Show Pending Pets Only", "/pets?adoption_status=false" %>

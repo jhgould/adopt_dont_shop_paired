@@ -1,0 +1,24 @@
+<h1><%= @pet.name %></h1>
+<img class="pet-show-img"src="<%= @pet.image_path %>" alt="<%= @pet.image_path %>">
+<p>Description: <%= @pet.description %> </p>
+<p>Approximate Age: <%= @pet.approximate_age %> </p>
+<p>Sex: <%= @pet.sex %> </p>
+<p>
+  Adoption status:
+  <%=
+    if @pet.adoption_status == true
+      "Adoptable"
+    else
+      "Pending"
+    end
+  %>
+</p>
+
+<% if @pet.adoption_status == true %>
+  <%= link_to "Change to Adoption Pending", "/pets/#{@pet.id}/pending", method: :patch%>
+<% elsif @pet.adoption_status == false %>
+  <%= link_to "Change to Adoptable", "/pets/#{@pet.id}/adoptable", method: :patch%>
+<% end %>
+
+<%= link_to "Update Pet", "/pets/#{@pet.id}/edit", id: "update-pet-#{@pet.id}" %>
+<%= button_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>

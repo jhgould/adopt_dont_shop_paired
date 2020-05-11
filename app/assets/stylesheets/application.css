@@ -1,0 +1,103 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ .nav_links {
+   color: black;
+   padding: 8px 18px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   background-color: #3483eb;
+ }
+
+ .shelter_name{
+   outline: none;
+   text-decoration: none;
+   display: inline-block;
+   margin-bottom: 1%;
+   width: 19.5%;
+   text-align: center;
+   line-height: 3;
+   color: black;
+ }
+ .shelter_name:link, .shelter_name:visited, .shelter_name:focus,
+ .delete_shelter:link, .delete_shelter:visited, .delete_shelter:focus,
+ .update_shelter:link, .update_shelter:visited, .update_shelter:focus
+  {
+   background: #3483eb;
+ }
+
+ .shelter_name:hover, .update_shelter:hover {
+   background: orange;
+ }
+
+ .delete_shelter:hover{
+   background: red;
+ }
+
+ .shelter_name:active, .delete_shelter:active, .update_shelter:active  {
+   background: red;
+   color: white;
+ }
+
+ .update_shelter, .delete_shelter{
+   outline: none;
+   text-decoration: none;
+   display: inline-block;
+   width: 8%;
+   margin-bottom: 1%;
+   text-align: center;
+   line-height: 3;
+   color: black;
+ }
+
+ .pet_profile{
+   list-style-type: none;
+   background-color: tan;
+   display: inline-block;
+ }
+
+.pet_index_image {
+   width: 40%;
+   margin: 10px
+ }
+
+ .pet-show-img{
+   width: 50%;
+ }
+
+h1 {
+
+}
+
+body {
+  background: lightblue;
+  font-family: Arial;
+}
+
+input[type="submit"] {
+    background: none;
+    border: none;
+    outline: none;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+  }
+
+  form {
+       display:inline;
+       margin:0px;
+       padding:0px;
+  }
