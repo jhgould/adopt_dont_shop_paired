@@ -84,8 +84,6 @@ RSpec.describe "shelter show page", type: :feature do
     expect(page).to_not have_content(@review_3.title)
     expect(page).to_not have_content("Rating:#{@review_3.rating}")
     expect(page).to_not have_content(@review_3.content)
-
-
   end
 
 
