@@ -20,7 +20,6 @@ RSpec.describe "review creation", type: :feature  do
     click_button"Submit Review"
     expect(current_path).to eq("/shelters/#{@shelter.id}")
     expect(page).to have_content("Great Shelter")
-    expect(page).to have_content("5")
     expect(page).to have_content("Rating:5")
     expect(page).to have_content("This is a great shelter")
   end
