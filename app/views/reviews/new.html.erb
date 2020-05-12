@@ -1,0 +1,14 @@
+<h1>New Review for <%= @shelter.name %></h1>
+
+<%= form_tag "/reviews" do %>
+  <%= label_tag :title, "Title: " %>
+  <%= text_field_tag :title %>
+  <%= label_tag :rating, "Rating:" %>
+  <%= number_field_tag :rating, min: 1, max: 5 %>
+  <%= label_tag :content, "Content: " %>
+  <%= text_field_tag :content %>
+  <%= label_tag :image_path, "Image URL:" %>
+  <%= text_field_tag :image_path %>
+  <%= hidden_field_tag :shelter_id, "#{@shelter.id}" %>
+  <%= submit_tag "Submit Review" %>
+<% end %>

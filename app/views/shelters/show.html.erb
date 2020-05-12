@@ -5,15 +5,21 @@
   <%= @shelter.state %>
   <%= @shelter.zip %>
 </h2>
+
+<section class="reviews">
+  <h2>Reviews</h2>
+    <% @shelter.reviews.each do |review| %>
+      <div>
+        <%= review.title %>
+        <%= "Rating:#{review.rating}" %>
+        <%= review.content %>
+        <%= review.image_path %>
+      </div>
+    <% end %>
+</section>
+
+<%= link_to "New Review", "/shelters/#{@shelter.id}/reviews/new" %>
 <br>
-
-<% @shelter.reviews.each do |review| %>
-  <%= review.title %>
-  <%= "Rating:#{review.rating}" %>
-  <%= review.content %>
-  <%= review.image_path %>
-<% end %>
-
 <%= link_to "All Pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %>
 <br>
 <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit", id: "update-shelter-#{@shelter.id}"%>
