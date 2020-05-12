@@ -30,7 +30,7 @@ RSpec.describe "shelter show page", type: :feature do
                               image_path: "",
                               shelter_id: @shelter2.id)
     @review_3 = Review.create(title: "Average Shelter",
-                              rating: 1,
+                              rating: 2,
                               content: "They only had cats",
                               image_path: "",
                               shelter_id: @shelter1.id)
@@ -76,13 +76,13 @@ RSpec.describe "shelter show page", type: :feature do
     visit "/shelters/#{@shelter2.id}"
 
     expect(page).to have_content(@review_1.title)
-    expect(page).to have_content(@review_1.rating)
+    expect(page).to have_content("Rating:#{@review_1.rating}")
     expect(page).to have_content(@review_1.content)
     expect(page).to have_content(@review_2.title)
-    expect(page).to have_content(@review_2.rating)
+    expect(page).to have_content("Rating:#{@review_2.rating}")
     expect(page).to have_content(@review_2.content)
     expect(page).to_not have_content(@review_3.title)
-    expect(page).to_not have_content(@review_3.rating)
+    expect(page).to_not have_content("Rating:#{@review_3.rating}")
     expect(page).to_not have_content(@review_3.content)
 
 
