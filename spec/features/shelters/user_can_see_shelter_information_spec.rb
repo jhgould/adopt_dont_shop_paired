@@ -19,6 +19,21 @@ RSpec.describe "shelter show page", type: :feature do
       adoption_status: "Adoptable",
       sex: "F",
       shelter_id: @shelter2.id)
+    @review_1 = Review.create(title: "Great Shelter",
+                              rating: 5,
+                              content: "This shelter was very clean",
+                              image_path: "",
+                              shelter_id: @shelter2.id)
+    @review_2 = Review.create(title: "Horrible Shelter",
+                              rating: 1,
+                              content: "They were mean to the dogs",
+                              image_path: "",
+                              shelter_id: @shelter2.id)
+    @review_3 = Review.create(title: "Average Shelter",
+                              rating: 1,
+                              content: "They only had cats",
+                              image_path: "",
+                              shelter_id: @shelter1.id)
   end
 
   it "user can see the name, address, city, state and zip of the shelter" do
@@ -55,6 +70,22 @@ RSpec.describe "shelter show page", type: :feature do
     visit "/pets"
     click_link "#{@shelter2.name}"
     expect(current_path).to eq("/shelters/#{@shelter2.id}")
+  end
+
+  it "user can see all reviews for a given shelter" do
+    visit "/shelters/#{@shelter2.id}"
+
+    expect(page).to have_content(@review_1.title)
+    expect(page).to have_content(@review_1.rating)
+    expect(page).to have_content(@review_1.content)
+    expect(page).to have_content(@review_2.title)
+    expect(page).to have_content(@review_2.rating)
+    expect(page).to have_content(@review_2.content)
+    expect(page).to_not have_content(@review_3.title)
+    expect(page).to_not have_content(@review_3.rating)
+    expect(page).to_not have_content(@review_3.content)
+
+
   end
 
 
