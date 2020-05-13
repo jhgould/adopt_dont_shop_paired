@@ -12,7 +12,7 @@
     <nav>
       <%= link_to "All Pets", "/pets", class: :nav_links %>
       <%= link_to "All Shelters", "/shelters", class: :nav_links %>
-      <%= link_to "Total Favorites: 0", "/favorites", class: :nav_links %>
+      <%= link_to "Total Favorites: #{@favorites.total_count}", "/favorites", class: :nav_links %>
     </nav>
 
     <% flash.each do |type, message| %>
