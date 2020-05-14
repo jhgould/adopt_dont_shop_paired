@@ -3,7 +3,6 @@ require "rails_helper"
 RSpec.describe "favorites index page", type: :feature do
   before :each do
     @shelter = Shelter.create(name: "Angels With Paws")
-    @favorite = Favorite.create()
     @pet1 = @shelter.pets.create!(
       image_path: "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826_1280.jpg",
       name: "Bruno",
@@ -38,12 +37,15 @@ RSpec.describe "favorites index page", type: :feature do
       visit "/pets/#{@pet2.id}"
       click_link "Favorite Pet"
 
-      visit '/favorites'
+      click_link 'Total Favorites: 2'
 
       expect(page).to have_content(@pet1.name)
       expect(page).to have_content(@pet2.name)
 
-    
+      click_link "#{@pet1.name}"
+
+      expect(current_path).to eq("/pets/#{@pet1.id}")
+
     end
   end
 

@@ -1,0 +1,16 @@
+<h2>Favorite Pets</h2>
+
+
+<div class="pets_list">
+  <% favorites.contents.each do |pet| %>
+    <ul class="pet_profile">
+      <img src="<%= "#{pet["image_path"]}" %>" alt="pet image" class="pet_index_image">
+      <li>Name: <%= link_to "#{pet["name"]}", "/pets/#{pet["id"]}"%></li>
+      <li><%= link_to "Delete Pet", "/pets/#{pet["id"]}", id: "delete-pet-#{pet["id"]}", method: :delete %></li>
+    </ul>
+    <br>
+  <% end %>
+</div>
+
+<%= link_to "Show Adoptable Pets Only", "/pets?adoption_status=true" %>
+<%= link_to "Show Pending Pets Only", "/pets?adoption_status=false" %>
