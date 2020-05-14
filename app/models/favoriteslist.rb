@@ -9,7 +9,11 @@ class Favoriteslist
     @contents.count
   end
 
-  def add_favorite(favorite)
-    @contents << favorite
+  def add_favorite(pet)
+    @contents << pet
+  end
+
+  def remove_from_favorites(pet)
+    @contents.reject!{ |pet_hash| pet_hash["id"] == pet.id }
   end
 end

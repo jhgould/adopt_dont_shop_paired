@@ -59,15 +59,10 @@ RSpec.describe "favorites", type: :feature do
       expect(page).to_not have_content("Favorite Pet")
       click_link("Remove From Favorites")
       expect(current_path).to eq("/pets/#{@pet1.id}")
-      expect(page).to_not have_content("#{@pet1.name} removed from favorites.")
+      expect(page).to have_content("#{@pet1.name} removed from favorites.")
       expect(page).to have_content("Favorite Pet")
       expect(page).to have_content("Favorites: 0")
     end
   end
 
 end
-
-# A delete request is sent to "/favorites/:pet_id"
-# And I'm redirected back to that pets show page where I can see a flash message indicating that the pet was removed from my favorites
-# And I can now see a link to favorite that pet
-# And I also see that my favorites indicator has decremented by 1
