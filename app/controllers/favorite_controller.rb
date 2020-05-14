@@ -8,6 +8,6 @@ class FavoriteController < ApplicationController
   end
 
   def index
-    
+
   end
 end
