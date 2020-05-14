@@ -16,4 +16,8 @@ class Favoriteslist
   def remove_from_favorites(pet)
     @contents.reject!{ |pet_hash| pet_hash["id"] == pet.id }
   end
+
+  def clear_all
+    @contents.clear
+  end
 end

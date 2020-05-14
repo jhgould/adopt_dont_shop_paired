@@ -18,4 +18,10 @@ class FavoriteController < ApplicationController
     flash[:notice] = "#{pet.name} removed from favorites."
     redirect_back(fallback_location: root_path)
   end
+
+  def clear
+    favorites.clear_all
+    session[:favorites] = favorites.contents
+    redirect_to '/favorites'
+  end
 end
