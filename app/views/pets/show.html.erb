@@ -20,5 +20,6 @@
   <%= link_to "Change to Adoptable", "/pets/#{@pet.id}/adoptable", method: :patch%>
 <% end %>
 
+<%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :patch%>
 <%= link_to "Update Pet", "/pets/#{@pet.id}/edit", id: "update-pet-#{@pet.id}" %>
 <%= button_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>
