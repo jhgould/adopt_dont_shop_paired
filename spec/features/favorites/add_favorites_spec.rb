@@ -45,12 +45,23 @@ RSpec.describe "favorites", type: :feature do
   end
 
   describe "favorite creation" do
-    it "" do
+    it "pet can be added to favorites" do
       visit "/pets/#{@pet1.id}"
       click_link "Favorite Pet"
       expect(current_path).to eq("/pets/#{@pet1.id}")
       expect(page).to have_content("#{@pet1.name} added to favorites.")
       expect(page).to have_content("Total Favorites: 1")
+    end
+
+    it "pet can't be added to favorites more than once" do
+      visit "/pets/#{@pet1.id}"
+      click_link "Favorite Pet"
+      expect(page).to_not have_content("Favorite Pet")
+      click_link("Remove From Favorites")
+      expect(current_path).to eq("/pets/#{@pet1.id}")
+      expect(page).to have_content("#{@pet1.name} removed from favorites.")
+      expect(page).to have_content("Favorite Pet")
+      expect(page).to have_content("Favorites: 0")
     end
   end
 

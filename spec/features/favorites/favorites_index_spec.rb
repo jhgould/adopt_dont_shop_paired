@@ -45,10 +45,21 @@ RSpec.describe "favorites index page", type: :feature do
       click_link "#{@pet1.name}"
 
       expect(current_path).to eq("/pets/#{@pet1.id}")
-
     end
   end
 
-
-
+  it "user can remove from favorites from the favorites index" do
+    visit "/pets/#{@pet1.id}"
+    click_link "Favorite Pet"
+    visit "/pets/#{@pet2.id}"
+    click_link "Favorite Pet"
+    visit '/favorites'
+    within "#pet_#{@pet1.id}" do
+      click_link "Remove From Favorites"
+    end
+    expect(current_path).to eq("/favorites")
+    expect(page).to_not have_css("#pet_#{@pet1.id}")
+    expect(page).to have_css("#pet_#{@pet2.id}")
+    expect(page).to have_content("Total Favorites: 1")
+  end
 end
