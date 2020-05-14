@@ -8,4 +8,8 @@ class Favoriteslist
   def total_count
     @contents.count
   end
+
+  def add_favorite(favorite)
+    @contents << favorite
+  end
 end
