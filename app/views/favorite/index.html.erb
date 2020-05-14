@@ -1,6 +1,8 @@
 <h2>Favorite Pets</h2>
 
+<%= link_to "Clear Favorites", "/favorites", method: :delete %>
 
+<%= "You have not favorited any pets" if favorites.total_count == 0 %>
 <div class="pets_list">
   <% favorites.contents.each do |pet| %>
     <ul class="pet_profile" id="pet_<%= pet['id'] %>">
