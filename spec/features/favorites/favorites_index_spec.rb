@@ -62,4 +62,12 @@ RSpec.describe "favorites index page", type: :feature do
     expect(page).to have_css("#pet_#{@pet2.id}")
     expect(page).to have_content("Total Favorites: 1")
   end
+
+  it "displays that there are no favorited pets on the favorites page" do
+    visit "/favorites"
+
+    expect(page).to have_content("You have not favorited any pets")
+    expect(page).to have_content("Total Favorites: 0")
+
+  end
 end
