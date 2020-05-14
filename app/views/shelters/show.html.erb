@@ -10,10 +10,10 @@
   <h2>Reviews</h2>
     <% @shelter.reviews.each do |review| %>
       <div>
-        <%= review.title %>
-        <%= "Rating:#{review.rating}" %>
-        <%= review.content %>
-        <%= review.image_path %>
+        <%= review.title %><br>
+        <%= "Rating:#{review.rating}" %><br>
+        <%= review.content %><br>
+        <%= image_tag "#{review.image_path}", width: "20%", alt:"shelter-image" %> <br>
         <%= link_to "Update Review", "/reviews/#{review.id}/edit", id: "update_review_#{review.id}" %>
         <%= link_to "Delete Review", "/reviews/#{review.id}", id: "delete_review_#{review.id}", method: :delete %>
       </div>
