@@ -4,12 +4,12 @@
 
 <%= "You have not favorited any pets" if favorites.total_count == 0 %>
 <div class="pets_list">
-  <% favorites.contents.each do |pet| %>
-    <ul class="pet_profile" id="pet_<%= pet['id'] %>">
-      <img src="<%= "#{pet["image_path"]}" %>" alt="pet image" class="pet_index_image">
-      <li>Name: <%= link_to "#{pet["name"]}", "/pets/#{pet["id"]}"%></li>
+  <% @pets.each do |pet| %>
+    <ul class="pet_profile" id="pet_<%= pet.id %>">
+      <img src="<%= "#{pet.image_path}" %>" alt="pet image" class="pet_index_image">
+      <li>Name: <%= link_to "#{pet.name}", "/pets/#{pet.id}"%></li>
       <li><%= link_to "Remove From Favorites", "/favorites/#{pet["id"]}", method: :delete %></li>
-      <li><%= link_to "Delete Pet", "/pets/#{pet["id"]}", id: "delete-pet-#{pet["id"]}", method: :delete %></li>
+      <li><%= link_to "Delete Pet", "/pets/#{pet.id}", id: "delete-pet-#{pet.id}", method: :delete %></li>
     </ul>
     <br>
   <% end %>
