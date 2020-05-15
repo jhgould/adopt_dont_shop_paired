@@ -38,9 +38,9 @@ RSpec.describe "applications", type: :feature do
     click_link "Favorite Pet"
     visit "/favorites"
     click_link "Adopt Favorite Pets"
-    expect(current_path).to eq("/application/new")
+    expect(current_path).to eq("/applications/new")
   end
-  
+
   xit "user can fill create an application" do
     visit "/pets/#{@pet1.id}"
     click_link "Favorite Pet"
