@@ -1,17 +1,51 @@
 require 'rails_helper'
 
 RSpec.describe Favoriteslist do
-  describe "#total_count" do
-    it "can calculate the total number of pets" do
-      shelter = create(:shelter)
-      pet = shelter.pets.create!(
-        image_path: "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826_1280.jpg",
-        name: "Bruno",
-        approximate_age: "4",
-        sex: "M",
-        adoption_status: "Adoptable",)
-      favorites = Favoriteslist.new([pet])
-      expect(favorites.total_count).to eq(1)
+
+  before :each do
+    @shelter = create(:shelter)
+    @pet1 = @shelter.pets.create!(
+      image_path: "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826_1280.jpg",
+      name: "Bruno",
+      approximate_age: "4",
+      sex: "M",
+      adoption_status: "Adoptable",)
+    @pet2 = @shelter.pets.create!(
+      image_path: "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826_1280.jpg",
+      name: "Bruno",
+      approximate_age: "4",
+      sex: "M",
+      adoption_status: "Adoptable",)
+    @favorites = Favoriteslist.new([@pet1])
+  end
+
+  describe "methods" do
+    it "total_count" do
+      expect(@favorites.total_count).to eq(1)
+    end
+
+    it "add_favorite" do
+      @favorites.add_favorite(@pet2)
+      expect(@favorites.total_count).to eq(2)
+    end
+
+    it "remove_from_favorites" do
+      @favorites.add_favorite(@pet2)
+      @favorites.remove_from_favorites(@pet2)
+      expect(@favorites.total_count).to eq(1)
+      @favorites.remove_from_favorites(@pet1)
+      expect(@favorites.total_count).to eq(0)
+    end
+
+    it "remove_all_from_favorites" do
+      @favorites.add_favorite(@pet2)
+      @favorites.remove_all_from_favorites([@pet1, @pet2])
+      expect(@favorites.total_count).to eq(0)
+    end
+
+    it "clear_all" do
+      @favorites.clear_all
+      expect(@favorites.total_count).to eq(0)
     end
   end
 end
