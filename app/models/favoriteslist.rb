@@ -17,6 +17,10 @@ class Favoriteslist
     @contents.reject!{ |pet_id| pet_id  == pet }
   end
 
+  def remove_all_from_favorites(pet_ids)
+    pet_ids.each { |pet_id| remove_from_favorites(pet_id) }
+  end
+
   def clear_all
     @contents.clear
   end
