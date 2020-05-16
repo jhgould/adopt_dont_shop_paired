@@ -1,5 +1,7 @@
 class Pet < ApplicationRecord
   belongs_to :shelter
+  has_many :pet_applications
+  has_many :applications, through: :pet_applications
   validates_presence_of :name
   attribute :adoption_status, :boolean, default: true
 
@@ -13,6 +15,10 @@ class Pet < ApplicationRecord
 
   def self.order_by_adoption_status
     order("adoption_status DESC NULLS LAST ")
+  end
+
+  def self.all_with_application
+    joins(:pet_applications).distinct
   end
 
 end

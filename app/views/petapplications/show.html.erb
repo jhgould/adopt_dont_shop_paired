@@ -1,0 +1,27 @@
+<h1>Application</h1>
+
+<h2>
+  <%= @application.name %>
+</h2>
+
+<h3>
+  <%= @application.address %>
+  <%= @application.city %>
+  <%= @application.state %>
+  <%= @application.zip %>
+</h3>
+
+<h4>
+  <%= @application.phone_number %>
+</h4>
+
+<p>
+  Description: <%= @application.description %>
+</p>
+
+<section class="application_pets">
+  <h4>Pets: </h4>
+  <% @application.pets.each do |pet| %>
+    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <br>
+  <% end %>
+</section>

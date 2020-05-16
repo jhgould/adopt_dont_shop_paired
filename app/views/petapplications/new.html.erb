@@ -1,0 +1,25 @@
+<h1>New Application</h1>
+
+<section class="application">
+  <div class="select-pets">
+    <%= form_tag "/applications", method: :post do%>
+      <%= collection_check_boxes(:adopt, :pet_id, @pets, :id, :name) %>
+      <br><br>
+      <%= label_tag :name, "Name: "  %>
+      <%= text_field_tag :name %><br><br>
+      <%= label_tag :address, "Address: " %>
+      <%= text_field_tag :address %><br><br>
+      <%= label_tag :city, "City: " %>
+      <%= text_field_tag :city %><br><br>
+      <%= label_tag :state, "State: " %>
+      <%= text_field_tag :state %><br><br>
+      <%= label_tag :zip, "Zip: " %>
+      <%= text_field_tag :zip %><br><br>
+      <%= label_tag :phone_number, "Phone Number: " %>
+      <%= text_field_tag :phone_number %><br><br>
+      <%= label_tag :description, "Description: " %>
+      <%= text_field_tag :description %><br><br>
+      <%= submit_tag "Submit" %>
+    <% end %>
+  </div>
+</section>

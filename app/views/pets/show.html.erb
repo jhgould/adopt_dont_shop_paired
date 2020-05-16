@@ -20,7 +20,7 @@
   <%= link_to "Change to Adoptable", "/pets/#{@pet.id}/adoptable", method: :patch%>
 <% end %>
 
-<% if favorites.contents.any? { |pet_hash| pet_hash["id"] == @pet.id } %>
+<% if favorites.contents.any? { |pet_id| pet_id == @pet.id.to_s } %>
   <%= link_to "Remove From Favorites", "/favorites/#{@pet.id}", method: :delete %>
   <% else %>
 <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :patch %>
