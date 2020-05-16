@@ -41,16 +41,16 @@ RSpec.describe "applications", type: :feature do
     expect(current_path).to eq("/applications/new")
   end
 
-  xit "user can fill create an application" do
+  it "user create an application" do
     visit "/pets/#{@pet1.id}"
     click_link "Favorite Pet"
     visit "/pets/#{@pet2.id}"
     click_link "Favorite Pet"
     visit "/pets/#{@pet3.id}"
     click_link "Favorite Pet"
-    visit "/application/new"
-    fill_in "Select Pet(s)", with: "#{@pet1.id}"
-    fill_in "Select Pet(s)", with: "#{@pet2.id}"
+    visit "/applications/new"
+    check "adopt_pet_id_#{@pet1.id}"
+    check "adopt_pet_id_#{@pet2.id}"
     fill_in "Name", with: "Jack"
     fill_in "Address", with: "1223"
     fill_in "City", with: "Lakewood"
@@ -58,7 +58,7 @@ RSpec.describe "applications", type: :feature do
     fill_in "Zip", with: "80215"
     fill_in "Phone Number", with: "555-5555"
     fill_in "Description", with: "Im awesome."
-    click_button "submit"
+    click_button "Submit"
     expect(page).to have_content("Application Submitted!")
     expect(current_path).to eq("/favorites")
     expect(page).to have_content("#{@pet3.name}")
