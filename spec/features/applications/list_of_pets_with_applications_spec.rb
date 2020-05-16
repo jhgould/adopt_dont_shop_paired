@@ -29,25 +29,13 @@ RSpec.describe "applications", type: :feature do
       adoption_status: "Adoptable",)
   end
 
-  it "user can access application form from the favorties index" do
+  it "user can see a list of pets whith applications from the favorites index" do
     visit "/pets/#{@pet1.id}"
     click_link "Favorite Pet"
     visit "/pets/#{@pet2.id}"
-    click_link "Favorite Pet"
-    visit "/pets/#{@pet3.id}"
     click_link "Favorite Pet"
     visit "/favorites"
     click_link "Adopt Favorite Pets"
-    expect(current_path).to eq("/applications/new")
-  end
-
-  it "user can create an application" do
-    visit "/pets/#{@pet1.id}"
-    click_link "Favorite Pet"
-    visit "/pets/#{@pet2.id}"
-    click_link "Favorite Pet"
-    visit "/pets/#{@pet3.id}"
-    click_link "Favorite Pet"
     visit "/applications/new"
     check "adopt_pet_id_#{@pet1.id}"
     check "adopt_pet_id_#{@pet2.id}"
@@ -59,20 +47,12 @@ RSpec.describe "applications", type: :feature do
     fill_in "Phone Number", with: "555-5555"
     fill_in "Description", with: "Im awesome."
     click_button "Submit"
-    expect(page).to have_content("Application Submitted!")
-    expect(current_path).to eq("/favorites")
-    within ".pets_list" do
-      expect(page).to have_content("#{@pet3.name}")
-      expect(page).to_not have_content("#{@pet1.name}")
-      expect(page).to_not have_content("#{@pet2.name}")
+    within ".application_pet_list" do
+      expect(page).to have_content(@pet1.name)
+      expect(page).to have_content(@pet2.name)
+      expect(page).to_not have_content(@pet3.name)
+      expect(page).to_not have_content(@pet4.name)
     end
-  end
-
-  it "incomplete application" do
-    visit "/applications/new"
-    click_button "Submit"
-    expect(current_path).to eq("/applications/new")
-    expect(page).to have_content("Please fill out the required fields.")
   end
 
 end
