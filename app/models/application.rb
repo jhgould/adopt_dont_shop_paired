@@ -3,6 +3,7 @@ class Application < ApplicationRecord
                         :address,
                         :city,
                         :state,
+                        :zip,
                         :phone_number,
                         :description
   has_many :pet_applications

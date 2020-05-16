@@ -28,6 +28,7 @@ class PetapplicationsController < ApplicationController
       :address,
       :city,
       :state,
+      :zip,
       :phone_number,
       :description
     )
