@@ -5,4 +5,6 @@ class Application < ApplicationRecord
                         :state,
                         :phone_number,
                         :description
+  has_many :pet_applications
+  has_many :pets, through: :pet_applications
 end
