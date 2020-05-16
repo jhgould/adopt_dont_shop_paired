@@ -66,4 +66,11 @@ RSpec.describe "applications", type: :feature do
     expect(page).to_not have_content("#{@pet2.name}")
   end
 
+  it "incomplete application" do
+    visit "/applications/new"
+    click_button "Submit"
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("Please fill out the required fields.")
+  end
+
 end

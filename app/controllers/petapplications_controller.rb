@@ -5,9 +5,29 @@ class PetapplicationsController < ApplicationController
   end
 
   def create
-    favorites.remove_all_from_favorites(params[:adopt][:pet_id])
-    flash[:notice] = "Application Submitted!"
-    redirect_to '/favorites'
+    application = Application.new(application_params)
+    if application.save
+      favorites.remove_all_from_favorites(params[:adopt][:pet_id])
+      flash[:notice] = "Application Submitted!"
+      redirect_to '/favorites'
+    else
+      flash[:notice] = "Please fill out the required fields."
+      redirect_to "/applications/new"
+    end
+  end
+
+  private
+
+  def application_params
+    params.permit(
+      :pets,
+      :name,
+      :address,
+      :city,
+      :state,
+      :phone_number,
+      :description
+    )
   end
 
 end

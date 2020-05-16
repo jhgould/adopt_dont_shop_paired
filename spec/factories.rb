@@ -1,4 +1,13 @@
 FactoryBot.define do
+  factory :application do
+    name { "MyString" }
+    address { "MyString" }
+    city { "MyString" }
+    state { "MyString" }
+    phone_number { "MyString" }
+    description { "MyString" }
+  end
+
   factory :shelter do
     name { "Angels With Paws" }
   end
