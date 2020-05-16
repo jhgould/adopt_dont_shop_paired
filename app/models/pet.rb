@@ -17,4 +17,8 @@ class Pet < ApplicationRecord
     order("adoption_status DESC NULLS LAST ")
   end
 
+  def self.all_with_application
+    joins(:pet_applications).distinct
+  end
+
 end

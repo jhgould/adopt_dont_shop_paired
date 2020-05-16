@@ -13,10 +13,17 @@
     </ul>
     <br>
   <% end %>
+  <%= link_to "Adopt Favorite Pets", "/applications/new"%>
 </div>
 
-<div class="application_pet_list">
-  
-</div>
 
-<%= link_to "Adopt Favorite Pets", "/applications/new"%>
+<section class="application_pet_list">
+  <h3>Pets Applied For: </h3>
+  <ul>
+  <% @application_pets.each do |pet| %>
+    <li class="application_pet_<%= pet.id %>">
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+    </li>
+  <% end %>
+</ul>
+</section>

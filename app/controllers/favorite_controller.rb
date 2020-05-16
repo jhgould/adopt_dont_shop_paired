@@ -9,6 +9,7 @@ class FavoriteController < ApplicationController
 
   def index
     @pets = Pet.find(favorites.contents)
+    @application_pets = Pet.all_with_application
   end
 
   def destroy

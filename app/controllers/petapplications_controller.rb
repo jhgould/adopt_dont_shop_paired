@@ -7,6 +7,9 @@ class PetapplicationsController < ApplicationController
   def create
     application = Application.new(application_params)
     if application.save
+      params[:adopt][:pet_id].each do |pet_id|
+        PetApplication.create(pet_id: pet_id, application_id: application.id)
+      end
       favorites.remove_all_from_favorites(params[:adopt][:pet_id])
       flash[:notice] = "Application Submitted!"
       redirect_to '/favorites'
