@@ -30,4 +30,13 @@ RSpec.describe "application show page" do
     expect(page).to have_content(@pet1.name)
     expect(page).to have_content(@pet2.name)
   end
+
+  it "application can be approved" do
+    visit "/applications/#{@application.id}"
+    click_link "Approve Application"
+    expect(current_path).to eq("/pets/#{@pet1.id}")
+    expect(page).to have_content("pending")
+    expect(page).to have_content("#{@pet1.name} is on hold for #{@application.name}")
+  end
+
 end
