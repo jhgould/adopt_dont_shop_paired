@@ -88,7 +88,6 @@ RSpec.describe "application show page" do
     it "only one applicaiton can be approved for a pet" do
 
       visit "/applications/#{@application.id}"
-      save_and_open_page
 
       within ".pet-#{@pet2.id}" do
         click_link "Approve Application"
@@ -100,7 +99,33 @@ RSpec.describe "application show page" do
         expect(page).to_not have_content("Approve Application")
         expect(page).to have_content("#{@pet2.name} has been adopted")
       end
+    end
 
+    it "user can revoke an application" do
+
+      visit "/applications/#{@application.id}"
+
+      within ".pet-#{@pet2.id}" do
+        click_link "Approve Application"
+      end
+
+      visit "/applications/#{@application.id}"
+      within ".pet-#{@pet2.id}" do
+        expect(page).to_not have_content("Approve Application")
+        expect(page).to have_content("#{@pet2.name} has been adopted")
+        click_link "Revoke Application"
+      end
+
+      expect(current_path).to eq("/applications/#{@application.id}")
+
+      within ".pet-#{@pet2.id}" do
+        expect(page).to have_content("Approve Application")
+        expect(page).to_not have_content("Revoke Application")
+        click_link "#{@pet2.name}"
+      end
+
+      expect(page).to have_content("Adoption status: Adoptable")
+      expect(page).to_not have_content("#{@pet2.name} is on hold for #{@application.name}")
     end
 
 
