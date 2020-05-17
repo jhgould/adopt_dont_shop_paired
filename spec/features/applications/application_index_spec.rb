@@ -44,12 +44,14 @@ RSpec.describe "applications index page", type: :feature do
                             description: "idk some string")
 
 
-    PetApplication.create(application_id: @application1.id, pet_id: @pet1.id)
-    PetApplication.create(application_id: @application2.id, pet_id: @pet1.id)
-    PetApplication.create(application_id: @application3.id, pet_id: @pet2.id)
   end
 
   it "a user can see all the applicatons for a pet from the pets show page" do
+
+    PetApplication.create(application_id: @application1.id, pet_id: @pet1.id)
+    PetApplication.create(application_id: @application2.id, pet_id: @pet1.id)
+    PetApplication.create(application_id: @application3.id, pet_id: @pet2.id)
+
     visit "/pets/#{@pet1.id}"
 
     click_link "View All Applications"
@@ -73,5 +75,10 @@ RSpec.describe "applications index page", type: :feature do
     expect(current_path).to eq("/applications/#{@application3.id}")
   end
 
+  it "user will see that there are no applications for a pet on the pet index page" do
+    visit "/pets/#{@pet1.id}"
+    click_link "View All Applications"
+    expect(page).to have_content("#{@pet1.name} has no applications. Be the first to apply!")
+  end
 
 end
