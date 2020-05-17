@@ -23,6 +23,11 @@ class PetapplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def index
+    # @applications = Application.all
+    @pet = Pet.find(params[:pet_id])
+  end
+
   private
 
   def application_params
