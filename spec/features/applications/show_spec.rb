@@ -14,8 +14,25 @@ RSpec.describe "application show page" do
       approximate_age: "4",
       sex: "M",)
     @application = create(:application)
+    @application2 = Application.create!(name: "John",
+                           address: "123",
+                            city: "Denver",
+                            state: "CO",
+                            zip: "80203",
+                            phone_number: "444-4444",
+                            description: "idk some string")
+    @application3 = Application.create!(name: "Zack",
+                           address: "123",
+                            city: "Denver",
+                            state: "CO",
+                            zip: "80203",
+                            phone_number: "444-4444",
+                            description: "idk some string")
+
     PetApplication.create(application_id: @application.id, pet_id: @pet1.id)
     PetApplication.create(application_id: @application.id, pet_id: @pet2.id)
+    PetApplication.create(application_id: @application2.id, pet_id: @pet2.id)
+    PetApplication.create(application_id: @application3.id, pet_id: @pet2.id)
   end
 
   it "has all information for the application" do
@@ -47,7 +64,6 @@ RSpec.describe "application show page" do
 
   it "approve more than one application for a single person" do
     visit "/applications/#{@application.id}"
-    save_and_open_page
 
     within ".pet-#{@pet1.id}" do
       click_link "Approve Application"
@@ -68,6 +84,24 @@ RSpec.describe "application show page" do
     expect(page).to have_content("#{@pet2.name} is on hold for #{@application.name}")
 
   end
+
+    it "only one applicaiton can be approved for a pet" do
+
+      visit "/applications/#{@application.id}"
+      save_and_open_page
+
+      within ".pet-#{@pet2.id}" do
+        click_link "Approve Application"
+      end
+
+      visit "/applications/#{@application2.id}"
+
+      within ".pet-#{@pet2.id}" do
+        expect(page).to_not have_content("Approve Application")
+        expect(page).to have_content("#{@pet2.name} has been adopted")
+      end
+
+    end
 
 
 
