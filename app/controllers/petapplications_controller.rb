@@ -38,8 +38,7 @@ class PetapplicationsController < ApplicationController
       :state,
       :zip,
       :phone_number,
-      :description
-    )
+      :description)
   end
 
 end

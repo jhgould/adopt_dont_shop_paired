@@ -22,6 +22,9 @@
 <section class="application_pets">
   <h4>Pets: </h4>
   <% @application.pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <br>
+    <section class="pet-<%= pet.id%>">
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <%= link_to "Approve Application", "/pets/#{pet.id}" %> <br>
+    </section>
   <% end %>
 </section>
