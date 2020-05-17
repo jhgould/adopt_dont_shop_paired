@@ -50,17 +50,25 @@ RSpec.describe "applications index page", type: :feature do
   end
 
   it "a user can see all the applicatons for a pet from the pets show page" do
-    visit "pets/#{@pet1.id}"
+    visit "/pets/#{@pet1.id}"
 
     click_link "View All Applications"
     expect(page).to have_content(@application1.name)
     expect(page).to have_content(@application2.name)
     expect(page).to_not have_content(@application3.name)
 
+    visit "/pets/#{@pet1.id}"
+    click_link "View All Applications"
     click_link "#{@application1.name}"
     expect(current_path).to eq("/applications/#{@application1.id}")
+
+    visit "/pets/#{@pet1.id}"
+    click_link "View All Applications"
     click_link "#{@application2.name}"
     expect(current_path).to eq("/applications/#{@application2.id}")
+
+    visit "/pets/#{@pet2.id}"
+    click_link "View All Applications"
     click_link "#{@application3.name}"
     expect(current_path).to eq("/applications/#{@application3.id}")
   end
