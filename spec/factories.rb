@@ -8,10 +8,10 @@ FactoryBot.define do
     phone_number { "555-5555" }
     description { "MyString" }
   end
-
   factory :shelter do
     name { "Angels With Paws" }
   end
+
   factory :review do
     title { "Great Shelter" }
     rating {5}
