@@ -59,7 +59,6 @@ RSpec.describe "application show page" do
     expect(current_path).to eq("/pets/#{@pet1.id}")
     expect(page).to have_content("Adoption status: Pending")
     expect(page).to have_content("#{@pet1.name} is on hold for #{@application.name}")
-
   end
 
   it "approve more than one application for a single person" do
@@ -82,24 +81,7 @@ RSpec.describe "application show page" do
     expect(current_path).to eq("/pets/#{@pet2.id}")
     expect(page).to have_content("Adoption status: Pending")
     expect(page).to have_content("#{@pet2.name} is on hold for #{@application.name}")
-
   end
-
-    it "only one applicaiton can be approved for a pet" do
-
-      visit "/applications/#{@application.id}"
-
-      within ".pet-#{@pet2.id}" do
-        click_link "Approve Application"
-      end
-
-      visit "/applications/#{@application2.id}"
-
-      within ".pet-#{@pet2.id}" do
-        expect(page).to_not have_content("Approve Application")
-        expect(page).to have_content("#{@pet2.name} has been adopted")
-      end
-    end
 
     it "user can revoke an application" do
 
@@ -112,7 +94,6 @@ RSpec.describe "application show page" do
       visit "/applications/#{@application.id}"
       within ".pet-#{@pet2.id}" do
         expect(page).to_not have_content("Approve Application")
-        expect(page).to have_content("#{@pet2.name} has been adopted")
         click_link "Revoke Application"
       end
 
@@ -127,7 +108,4 @@ RSpec.describe "application show page" do
       expect(page).to have_content("Adoption status: Adoptable")
       expect(page).to_not have_content("#{@pet2.name} is on hold for #{@application.name}")
     end
-
-
-
 end
