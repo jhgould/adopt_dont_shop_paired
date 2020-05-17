@@ -46,7 +46,7 @@ class PetsController < ApplicationController
     if params[:app_id]
       application = Application.find(params[:app_id])
       application.update!(approved: true)
-    end 
+    end
     pet = Pet.find(params[:id])
     pet.update!(adoption_status: false)
     redirect_to "/pets/#{pet.id}"
@@ -55,7 +55,12 @@ class PetsController < ApplicationController
   def adoptable
     pet = Pet.find(params[:id])
     pet.update!(adoption_status: true)
-    redirect_to "/pets/#{pet.id}"
+      if params[:app_id]
+        application = Application.find(params[:app_id])
+        redirect_to "/applications/#{application.id}"
+      else
+        redirect_to "/pets/#{pet.id}"
+      end
   end
 
   private

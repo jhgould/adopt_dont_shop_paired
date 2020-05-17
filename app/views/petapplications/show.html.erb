@@ -27,7 +27,7 @@
       <%= if pet.adoption_status == true
           link_to "Approve Application", "/applications/#{@application.id}/pets/#{pet.id}/pending", method: :patch
         else
-          "#{pet.name} has been adopted"
+          link_to "Revoke Application", "/applications/#{@application.id}/pets/#{pet.id}/adoptable", method: :patch
         end %>
     </section>
   <% end %>
