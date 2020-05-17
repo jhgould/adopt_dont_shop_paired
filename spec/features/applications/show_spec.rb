@@ -10,7 +10,7 @@ RSpec.describe "application show page" do
       sex: "M",)
     @pet2 = @shelter.pets.create(
       image_path: "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826_1280.jpg",
-      name: "Bruno",
+      name: "Spike",
       approximate_age: "4",
       sex: "M",)
     @application = create(:application)
@@ -42,6 +42,30 @@ RSpec.describe "application show page" do
     expect(current_path).to eq("/pets/#{@pet1.id}")
     expect(page).to have_content("Adoption status: Pending")
     expect(page).to have_content("#{@pet1.name} is on hold for #{@application.name}")
+
+  end
+
+  it "approve more than one application for a single person" do
+    visit "/applications/#{@application.id}"
+    save_and_open_page
+
+    within ".pet-#{@pet1.id}" do
+      click_link "Approve Application"
+    end
+
+    expect(current_path).to eq("/pets/#{@pet1.id}")
+    expect(page).to have_content("Adoption status: Pending")
+    expect(page).to have_content("#{@pet1.name} is on hold for #{@application.name}")
+
+    visit "/applications/#{@application.id}"
+
+    within ".pet-#{@pet2.id}" do
+      click_link "Approve Application"
+    end
+
+    expect(current_path).to eq("/pets/#{@pet2.id}")
+    expect(page).to have_content("Adoption status: Pending")
+    expect(page).to have_content("#{@pet2.name} is on hold for #{@application.name}")
 
   end
 
