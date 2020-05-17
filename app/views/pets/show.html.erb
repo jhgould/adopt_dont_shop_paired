@@ -13,6 +13,15 @@
     end
   %>
 </p>
+<p>
+
+<%= if @pet.adoption_status == false
+    "#{@pet.name} is on hold for #{@application.pluck(:name).first}"
+  end
+ %>
+ </p>
+
+
 
 <% if @pet.adoption_status == true %>
   <%= link_to "Change to Adoption Pending", "/pets/#{@pet.id}/pending", method: :patch%>

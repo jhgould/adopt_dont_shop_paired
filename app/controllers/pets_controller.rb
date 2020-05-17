@@ -12,6 +12,7 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
+    @application = @pet.applications.where(approved: true)
   end
 
   def new
@@ -42,6 +43,10 @@ class PetsController < ApplicationController
   end
 
   def pending
+    if params[:app_id]
+      application = Application.find(params[:app_id])
+      application.update!(approved: true)
+    end 
     pet = Pet.find(params[:id])
     pet.update!(adoption_status: false)
     redirect_to "/pets/#{pet.id}"
