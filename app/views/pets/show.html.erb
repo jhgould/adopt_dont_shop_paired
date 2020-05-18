@@ -15,7 +15,7 @@
 </p>
 <p>
 <%= if @pet.adoption_status == false
-    "#{@pet.name} is on hold for #{@application.pluck(:name).first}"
+    "#{@pet.name} is on hold for #{@application.find_applicant_name}"
   end
  %>
  </p>

@@ -108,4 +108,24 @@ RSpec.describe "application show page" do
       expect(page).to have_content("Adoption status: Adoptable")
       expect(page).to_not have_content("#{@pet2.name} is on hold for #{@application.name}")
     end
+
+    it "when application is revoked and approved for another applicant the information is displayed correctly" do
+      visit "/applications/#{@application.id}"
+
+      within ".pet-#{@pet2.id}" do
+        click_link "Approve Application"
+      end
+
+      visit "/applications/#{@application.id}"
+        within ".pet-#{@pet2.id}" do
+          click_link "Revoke Application"
+        end
+
+        visit "/applications/#{@application2.id}"
+          within ".pet-#{@pet2.id}" do
+            click_link "Approve Application"
+          end
+
+        expect(page).to have_content("#{@pet2.name} is on hold for #{@application2.name}")
+    end
 end

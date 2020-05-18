@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200517160228) do
+ActiveRecord::Schema.define(version: 20200518172206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,12 @@ ActiveRecord::Schema.define(version: 20200517160228) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "zip"
-    t.boolean "approved"
   end
 
   create_table "pet_applications", force: :cascade do |t|
     t.bigint "pet_id"
     t.bigint "application_id"
+    t.boolean "approved"
     t.index ["application_id"], name: "index_pet_applications_on_application_id"
     t.index ["pet_id"], name: "index_pet_applications_on_pet_id"
   end

@@ -12,7 +12,7 @@ class PetsController < ApplicationController
 
   def show
     @pet = Pet.find(params[:id])
-    @application = @pet.applications.where(approved: true)
+    @application = @pet.pet_applications.where(approved: true)
   end
 
   def new
@@ -46,7 +46,7 @@ class PetsController < ApplicationController
     pet = Pet.find(params[:id])
     if params[:app_id]
       application = PetApplication.where(application_id: params[:app_id], pet_id: pet.id)
-      application.update!(approved: true)
+      application.update(approved: true)
     end
     pet.update!(adoption_status: false)
     redirect_to "/pets/#{pet.id}"
@@ -57,8 +57,8 @@ class PetsController < ApplicationController
     pet.update!(adoption_status: true)
       if params[:app_id]
         application = PetApplication.where(application_id: params[:app_id], pet_id: pet.id)
-        application.update!(approved: true)
-        redirect_to "/applications/#{application.id}"
+        application.update(approved: false)
+        redirect_to "/applications/#{params[:app_id]}"
       else
         redirect_to "/pets/#{pet.id}"
       end
