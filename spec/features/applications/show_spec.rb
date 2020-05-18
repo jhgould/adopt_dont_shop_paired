@@ -128,4 +128,19 @@ RSpec.describe "application show page" do
 
         expect(page).to have_content("#{@pet2.name} is on hold for #{@application2.name}")
     end
+
+    it "user can not revoke another persons application" do
+      visit "/applications/#{@application.id}"
+
+      within ".pet-#{@pet2.id}" do
+        click_link "Approve Application"
+      end
+
+      visit "/applications/#{@application2.id}"
+      within ".pet-#{@pet2.id}" do
+        expect(page).to_not have_content("Revoke Application")
+        expect(page).to_not have_content("Approve Application")
+      end
+    end
+
 end

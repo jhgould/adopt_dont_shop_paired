@@ -8,4 +8,5 @@ class PetApplication < ApplicationRecord
     select('applications.*').joins(:application).pluck(:name).first
   end
 
+
 end
