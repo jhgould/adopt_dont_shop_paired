@@ -13,6 +13,14 @@
     end
   %>
 </p>
+<p>
+<%= if @pet.adoption_status == false
+    "#{@pet.name} is on hold for #{@application.find_applicant_name}"
+  end
+ %>
+ </p>
+
+
 
 <% if @pet.adoption_status == true %>
   <%= link_to "Change to Adoption Pending", "/pets/#{@pet.id}/pending", method: :patch%>
@@ -26,5 +34,6 @@
 <%= link_to "Favorite Pet", "/favorites/#{@pet.id}", method: :patch %>
 <% end %>
 
+<%= link_to "View All Applications", "/pets/#{@pet.id}/applicatons", id: "applications-#{@pet.id}" %>
 <%= link_to "Update Pet", "/pets/#{@pet.id}/edit", id: "update-pet-#{@pet.id}" %>
 <%= button_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>

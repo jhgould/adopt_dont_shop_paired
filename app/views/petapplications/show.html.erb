@@ -22,6 +22,15 @@
 <section class="application_pets">
   <h4>Pets: </h4>
   <% @application.pets.each do |pet| %>
-    <%= link_to "#{pet.name}", "/pets/#{pet.id}" %> <br>
+    <section class="pet-<%= pet.id%>">
+      <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+      <% if !pet.has_approved_application(@application.id) %>
+        <%= if pet.adoption_status == true
+            link_to "Approve Application", "/applications/#{@application.id}/pets/#{pet.id}/pending", method: :patch
+          else
+            link_to "Revoke Application", "/applications/#{@application.id}/pets/#{pet.id}/adoptable", method: :patch
+          end %>
+      <% end %>
+    </section>
   <% end %>
 </section>

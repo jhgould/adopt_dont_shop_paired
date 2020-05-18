@@ -1,0 +1,6 @@
+<h1>All Applications</h1>
+
+<%= "#{@pet.name} has no applications. Be the first to apply!" if @pet.applications.count == 0 %>
+<% @pet.applications.each do |application| %>
+  <p>Name of Applicant: <%= link_to "#{application.name}", "/applications/#{application.id}" %></p>
+<% end %>

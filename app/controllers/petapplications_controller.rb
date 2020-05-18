@@ -23,6 +23,10 @@ class PetapplicationsController < ApplicationController
     @application = Application.find(params[:id])
   end
 
+  def index
+    @pet = Pet.find(params[:pet_id])
+  end
+
   private
 
   def application_params
@@ -34,8 +38,7 @@ class PetapplicationsController < ApplicationController
       :state,
       :zip,
       :phone_number,
-      :description
-    )
+      :description)
   end
 
 end
