@@ -10,8 +10,9 @@ RSpec.describe "shelter delete", type: :feature do
                       description: "Best dog ever.",
                       approximate_age: "4",
                       sex: "M",
-                      shelter_id: @shelter2.id,
-                      adoption_status: "Adoptable")
+                      shelter_id: @shelter2.id,)
+    @application = create(:application)
+    PetApplication.create(application_id: @application.id, pet_id: @pet.id)
   end
 
   it "deletes the shelter when user clicks delete" do
@@ -28,4 +29,27 @@ RSpec.describe "shelter delete", type: :feature do
     expect(page).to_not have_content(@shelter2.name)
   end
 
+  it "Shelters with Pets that have pending status cannot be Deleted" do
+    visit "/applications/#{@application.id}"
+
+    within ".pet-#{@pet.id}" do
+      click_link "Approve Application"
+    end
+
+    visit "/shelters"
+    click_on "delete-shelter-#{@shelter2.id}"
+    expect(page).to have_content("Shelters with pending pets cannot be deleted.")
+    expect(page).to have_content(@shelter1.name)
+
+    visit "/shelters/#{@shelter1.id}"
+    click_on "Delete Shelter"
+    expect(page).to have_content("Shelters with pending pets cannot be deleted.")
+    expect(page).to have_content(@shelter1.name)
+  end
+
 end
+
+# I can not delete that shelter
+# Either:
+# - there is no button visible for me to delete the shelter
+# - if I click on the delete link for deleting a shelter, I see a flash message indicating that the shelter can not be deleted.
