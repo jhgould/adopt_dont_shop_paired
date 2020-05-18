@@ -86,5 +86,9 @@ RSpec.describe "shelter show page", type: :feature do
     expect(page).to_not have_content(@review_3.content)
   end
 
+  it "user can see number of pets at the shelter" do
+    visit "/shelters/#{@shelter2.id}"
+    expect(page).to have_content("Total Pets: 1")
+  end
 
 end

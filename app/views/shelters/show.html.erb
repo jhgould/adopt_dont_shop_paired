@@ -6,6 +6,8 @@
   <%= @shelter.zip %>
 </h2>
 
+<h2>Total Pets: <%= @shelter.pet_count %></h2>
+
 <section class="reviews">
   <h2>Reviews</h2>
     <% @shelter.reviews.each do |review| %>
