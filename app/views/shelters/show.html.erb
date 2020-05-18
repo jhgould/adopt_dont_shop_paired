@@ -10,6 +10,7 @@
 
 <section class="reviews">
   <h2>Reviews</h2>
+  <h3>Average Rating: <%= @shelter.average_rating %> </h3>
     <% @shelter.reviews.each do |review| %>
       <div>
         <%= review.title %><br>

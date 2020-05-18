@@ -22,4 +22,8 @@ class Shelter < ApplicationRecord
     pets.any?{ |pet| pet.adoption_status == false }
   end
 
+  def average_rating
+    reviews.average(:rating)
+  end
+
 end

@@ -91,4 +91,9 @@ RSpec.describe "shelter show page", type: :feature do
     expect(page).to have_content("Total Pets: 1")
   end
 
+  it "user can see average shelter review rating" do
+    visit "/shelters/#{@shelter2.id}"
+    expect(page).to have_content("Average Rating: 3")
+  end
+
 end

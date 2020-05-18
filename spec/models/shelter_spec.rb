@@ -40,5 +40,21 @@ RSpec.describe Shelter do
 
       expect(shelter.has_pending_pets).to eq(true)
     end
+
+    it "average_rating" do
+      shelter = create(:shelter)
+      shelter.reviews.create(title: "Great Shelter",
+                                rating: 5,
+                                content: "This shelter was very clean",
+                                image_path: "",
+                                )
+      shelter.reviews.create(title: "Bad Shelter",
+                                rating: 1,
+                                content: "This shelter was very clean",
+                                image_path: "",
+                                )
+
+      expect(shelter.average_rating).to eq(3)
+    end
   end
 end
