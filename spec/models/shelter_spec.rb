@@ -33,5 +33,12 @@ RSpec.describe Shelter do
         expect(shelter1.pet_count).to eq(2)
         expect(shelter2.pet_count).to eq(1)
     end
+
+    it "has_pending_pets" do
+      shelter = create(:shelter)
+      shelter.pets.create(name: "Dog", adoption_status: false)
+
+      expect(shelter.has_pending_pets).to eq(true)
+    end
   end
 end

@@ -20,4 +20,8 @@ class Shelter < ApplicationRecord
     order("name")
   end
 
+  def has_pending_pets
+    pets.any?{ |pet| pet.adoption_status == false }
+  end
+
 end
