@@ -43,11 +43,11 @@ class PetsController < ApplicationController
   end
 
   def pending
+    pet = Pet.find(params[:id])
     if params[:app_id]
-      application = Application.find(params[:app_id])
+      application = PetApplication.where(application_id: params[:app_id], pet_id: pet.id)
       application.update!(approved: true)
     end
-    pet = Pet.find(params[:id])
     pet.update!(adoption_status: false)
     redirect_to "/pets/#{pet.id}"
   end
@@ -56,7 +56,8 @@ class PetsController < ApplicationController
     pet = Pet.find(params[:id])
     pet.update!(adoption_status: true)
       if params[:app_id]
-        application = Application.find(params[:app_id])
+        application = PetApplication.where(application_id: params[:app_id], pet_id: pet.id)
+        application.update!(approved: true)
         redirect_to "/applications/#{application.id}"
       else
         redirect_to "/pets/#{pet.id}"
