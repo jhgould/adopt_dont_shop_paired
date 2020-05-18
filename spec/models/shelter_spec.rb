@@ -56,5 +56,16 @@ RSpec.describe Shelter do
 
       expect(shelter.average_rating).to eq(3)
     end
+
+    it "number_of_applications" do
+      shelter = create(:shelter)
+      pet1 = shelter.pets.create(name: "Dog")
+      application1 = create(:application)
+      application2 = create(:application)
+      PetApplication.create(application_id: application1.id, pet_id: pet1.id)
+      PetApplication.create(application_id: application2.id, pet_id: pet1.id)
+
+      expect(shelter.number_of_applications).to eq(2)
+    end
   end
 end

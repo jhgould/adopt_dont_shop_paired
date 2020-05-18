@@ -96,4 +96,13 @@ RSpec.describe "shelter show page", type: :feature do
     expect(page).to have_content("Average Rating: 3")
   end
 
+  it "user can see a shelters application count" do
+    application1 = create(:application)
+    application2 = create(:application)
+    PetApplication.create(application_id: application1.id, pet_id: @pet2.id)
+    PetApplication.create(application_id: application2.id, pet_id: @pet2.id)
+    visit "/shelters/#{@shelter2.id}"
+    expect(page).to have_content("Number of Applications: 2")
+  end
+
 end
