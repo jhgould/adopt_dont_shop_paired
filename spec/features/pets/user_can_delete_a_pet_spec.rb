@@ -63,6 +63,7 @@ RSpec.describe "pet delete", type: :feature do
     click_link "delete-pet-#{@pet.id}"
     expect(page).to have_content("Pets with approved/pending applications cannot be deleted")
     expect(page).to have_content(@pet.name)
+
   end
 
 end
