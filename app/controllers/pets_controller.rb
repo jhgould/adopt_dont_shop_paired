@@ -20,9 +20,15 @@ class PetsController < ApplicationController
   end
 
   def create
+    empty_params = pet_params.select{|param, value| value.empty?}
     shelter = Shelter.find(params[:shelter_id])
-    shelter.pets.create!(pet_params)
-    redirect_to "/shelters/#{shelter.id}/pets"
+    if !empty_params.empty?
+      flash[:notice] = "Please fill in #{empty_params.keys.join(", ")}"
+      redirect_back(fallback_location: root_path)
+    else
+      shelter.pets.create!(pet_params)
+      redirect_to "/shelters/#{shelter.id}/pets"
+    end
   end
 
   def edit
@@ -30,10 +36,16 @@ class PetsController < ApplicationController
   end
 
   def update
+    empty_params = pet_params.select{|param, value| value.empty?}
     pet = Pet.find(params[:id])
-    pet.update(pet_params)
-    pet.save
-    redirect_to "/pets/#{pet.id}"
+    if !empty_params.empty?
+      flash[:notice] = "Please fill in #{empty_params.keys.join(", ")}"
+      redirect_to "/pets/#{pet.id}/edit"
+    else
+      pet.update(pet_params)
+      pet.save
+      redirect_to "/pets/#{pet.id}"
+    end
   end
 
   def destroy

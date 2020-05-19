@@ -69,4 +69,19 @@ RSpec.describe "pet edit page", type: :feature do
     expect(current_path).to eq("/pets/#{@pet.id}/edit")
   end
 
+  it "flash message indicates what fields were not filled in" do
+    visit "shelters/#{@shelter.id}/pets"
+    click_link "update-pet-#{@pet.id}"
+
+    fill_in "name", with: "Kolohe"
+    fill_in "image_path", with: "https://cdn.pixabay.com/photo/2016/01/29/20/54/dog-1168663_1280.jpg"
+    fill_in "description", with: "cool dog"
+    fill_in "approximate_age", with: ""
+    fill_in "sex", with: ""
+    click_button "Submit"
+
+    expect(current_path).to eq("/pets/#{@pet.id}/edit")
+    expect(page).to have_content("Please fill in approximate_age, sex")
+  end
+
 end
