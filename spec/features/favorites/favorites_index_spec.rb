@@ -89,12 +89,17 @@ RSpec.describe "favorites index page", type: :feature do
     click_link "Favorite Pet"
     visit "/pets/#{@pet2.id}"
     click_link "Favorite Pet"
-
+    application1 = create(:application)
+    PetApplication.create(application_id: application1.id, pet_id: @pet1.id)
+    PetApplication.create(application_id: application1.id, pet_id: @pet2.id)
+    visit "/applications/#{application1.id}"
+    within ".pet-#{@pet2.id}" do
+      click_link "Approve Application"
+    end
     visit '/favorites'
-
-    within ("#approved_pets") do
-      expect(page).to have_link(@pet1.name)
-      expect(page).to have_link(@pet2.name)
+    within (".approved_pets") do
+      expect(page).to have_content(@pet2.name)
+      expect(page).to_not have_content(@pet1.name)
     end
   end
 end
