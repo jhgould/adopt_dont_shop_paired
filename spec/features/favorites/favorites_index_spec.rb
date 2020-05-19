@@ -83,4 +83,18 @@ RSpec.describe "favorites index page", type: :feature do
     expect(page).to have_content("You have not favorited any pets")
     expect(page).to have_content("Total Favorites: 0")
   end
+
+  it "displays a list of pets with approved applications" do
+    visit "/pets/#{@pet1.id}"
+    click_link "Favorite Pet"
+    visit "/pets/#{@pet2.id}"
+    click_link "Favorite Pet"
+
+    visit '/favorites'
+
+    within ("#approved_pets") do
+      expect(page).to have_link(@pet1.name)
+      expect(page).to have_link(@pet2.name)
+    end
+  end
 end
