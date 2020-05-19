@@ -22,11 +22,6 @@
 
 
 
-<% if @pet.adoption_status == true %>
-  <%= link_to "Change to Adoption Pending", "/pets/#{@pet.id}/pending", method: :patch%>
-<% elsif @pet.adoption_status == false %>
-  <%= link_to "Change to Adoptable", "/pets/#{@pet.id}/adoptable", method: :patch%>
-<% end %>
 
 <% if favorites.contents.any? { |pet_id| pet_id == @pet.id.to_s } %>
   <%= link_to "Remove From Favorites", "/favorites/#{@pet.id}", method: :delete %>
