@@ -34,7 +34,7 @@ RSpec.describe Pet do
     end
 
     it "has_approved_pets" do
-      expect(Pet.has_approved_pets).to eq(true)
+      expect(Pet.has_approved_pets?).to eq(true)
     end
   end
 end

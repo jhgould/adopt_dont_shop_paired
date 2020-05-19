@@ -21,18 +21,18 @@ class Pet < ApplicationRecord
     joins(:pet_applications).distinct
   end
 
-  def self.has_approved_pets
+  def self.has_approved_pets?
     joins(:pet_applications)
     .where("pet_applications.approved = true").exists?
   end
 
-  def has_approved_application(app_id)
+  def has_other_approved_application?(app_id)
     applications.any? do |application|
       application.id != app_id && pet_applications.where(application_id: application.id, pet_id: id).first.approved == true
     end
   end
 
-  def has_pending_application
+  def has_approved_application?
     pet_applications.any? do |application|
       application.approved == true
     end

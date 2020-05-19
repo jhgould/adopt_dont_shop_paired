@@ -50,7 +50,7 @@ class PetsController < ApplicationController
 
   def destroy
     pet = Pet.find(params[:id])
-    if pet.has_pending_application
+    if pet.has_approved_application?
        flash[:notice] =  "Pets with approved/pending applications cannot be deleted"
        redirect_back(fallback_location: root_path)
     else
