@@ -10,6 +10,10 @@ FactoryBot.define do
   end
   factory :shelter do
     name { "Angels With Paws" }
+    address { "123" }
+    city { "Denver" }
+    state { "CO" }
+    zip { "80204" }
   end
 
   factory :review do

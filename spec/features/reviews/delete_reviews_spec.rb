@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "delete review", type: :feature  do
   before :each do
-@shelter = create(:shelter)
-@review_1 = @shelter.reviews.create!(
+    @shelter = create(:shelter)
+    @review_1 = @shelter.reviews.create!(
                                 title: "Great",
                                 rating: 5,
                                 content: "This place was awesome")
-  @review_2 = @shelter.reviews.create!(
+    @review_2 = @shelter.reviews.create!(
                                 title: "good",
                                 rating: 3,
                                 content: "This place was ehh")

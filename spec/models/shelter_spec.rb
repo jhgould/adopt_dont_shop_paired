@@ -33,5 +33,39 @@ RSpec.describe Shelter do
         expect(shelter1.pet_count).to eq(2)
         expect(shelter2.pet_count).to eq(1)
     end
+
+    it "has_pending_pets" do
+      shelter = create(:shelter)
+      shelter.pets.create(name: "Dog", adoption_status: false)
+
+      expect(shelter.has_pending_pets).to eq(true)
+    end
+
+    it "average_rating" do
+      shelter = create(:shelter)
+      shelter.reviews.create(title: "Great Shelter",
+                                rating: 5,
+                                content: "This shelter was very clean",
+                                image_path: "",
+                                )
+      shelter.reviews.create(title: "Bad Shelter",
+                                rating: 1,
+                                content: "This shelter was very clean",
+                                image_path: "",
+                                )
+
+      expect(shelter.average_rating).to eq(3)
+    end
+
+    it "number_of_applications" do
+      shelter = create(:shelter)
+      pet1 = shelter.pets.create(name: "Dog")
+      application1 = create(:application)
+      application2 = create(:application)
+      PetApplication.create(application_id: application1.id, pet_id: pet1.id)
+      PetApplication.create(application_id: application2.id, pet_id: pet1.id)
+
+      expect(shelter.number_of_applications).to eq(2)
+    end
   end
 end

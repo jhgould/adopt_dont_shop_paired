@@ -31,4 +31,16 @@ RSpec.describe "shelter edit page", type: :feature do
     expect(current_path).to eq("/shelters/#{@shelter1.id}")
     expect(page).to have_content("123 main st")
   end
+
+  it "If user doesnt fill in field, flash message will tell them which one is empty" do
+    visit "/shelters/#{@shelter1.id}/edit"
+    fill_in "name", with: ""
+    fill_in "address", with: "2540 Youngfield St"
+    fill_in "state", with: "NM"
+    fill_in "city", with: ""
+    fill_in "zip", with: "12345"
+    click_button "Submit"
+    expect(current_path).to eq("/shelters/#{@shelter1.id}/edit")
+    expect(page).to have_content("Please fill in name, city")
+  end
 end

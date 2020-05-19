@@ -13,11 +13,23 @@ RSpec.describe "shelter index", type: :feature do
     fill_in "name", with: "New Shelter"
     fill_in "address", with: "2540 Youngfield St"
     fill_in "state", with: "NM"
+    fill_in "city", with: "Denver"
     fill_in "zip", with: "12345"
     click_button "Create Shelter"
 
     expect(current_path).to eq("/shelters")
     visit("/shelters")
     expect(page).to have_content("New Shelter")
+  end
+
+  it "If user doesnt fill in field, flash message will tell them which one is empty" do
+    visit "/shelters/new"
+    fill_in "address", with: "2540 Youngfield St"
+    fill_in "state", with: "NM"
+    fill_in "city", with: "Denver"
+    fill_in "zip", with: "12345"
+    click_button "Create Shelter"
+    expect(current_path).to eq("/shelters/new")
+    expect(page).to have_content("Please fill in name")
   end
 end

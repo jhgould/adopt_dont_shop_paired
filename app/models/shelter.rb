@@ -1,8 +1,6 @@
 class Shelter < ApplicationRecord
-  has_many :pets,
-  dependent: :destroy
-  has_many :reviews,
-  dependent: :destroy
+  has_many :pets, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   validates_presence_of :name
 
   def pet_count
@@ -18,6 +16,18 @@ class Shelter < ApplicationRecord
 
   def self.order_by_name
     order("name")
+  end
+
+  def has_pending_pets
+    pets.any?{ |pet| pet.adoption_status == false }
+  end
+
+  def average_rating
+    reviews.average(:rating)
+  end
+
+  def number_of_applications
+    pets.joins(:applications).count
   end
 
 end

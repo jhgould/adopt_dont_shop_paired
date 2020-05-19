@@ -18,13 +18,25 @@ class SheltersController < ApplicationController
   end
 
   def create
-    Shelter.create!(shelter_params)
-    redirect_to '/shelters'
+    empty_params = shelter_params.select{|param, value| value.empty?}
+    if !empty_params.empty?
+      flash[:notice] = "Please fill in #{empty_params.keys.join(", ")}"
+      redirect_to '/shelters/new'
+    else
+      Shelter.create!(shelter_params)
+      redirect_to '/shelters'
+    end
   end
 
   def destroy
-    Shelter.destroy(params[:id])
-    redirect_to '/shelters'
+    shelter = Shelter.find(params[:id])
+    if shelter.has_pending_pets
+      flash[:notice] = "Shelters with pending pets cannot be deleted."
+      redirect_back(fallback_location: root_path)
+    else
+      Shelter.destroy(params[:id])
+      redirect_to '/shelters'
+    end
   end
 
   def edit
@@ -32,9 +44,15 @@ class SheltersController < ApplicationController
   end
 
   def update
+    empty_params = shelter_params.select{|param, value| value.empty?}
     shelter = Shelter.find(params[:id])
-    shelter.update!(shelter_params)
-    redirect_to "/shelters/#{shelter.id}"
+    if !empty_params.empty?
+      flash[:notice] = "Please fill in #{empty_params.keys.join(", ")}"
+      redirect_to "/shelters/#{shelter.id}/edit"
+    else
+      shelter.update!(shelter_params)
+      redirect_to "/shelters/#{shelter.id}"
+    end
   end
 
   def pets
