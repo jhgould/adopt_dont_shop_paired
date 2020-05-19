@@ -23,7 +23,7 @@ shelter2.pets.create!(
   name: "Jim",
   approximate_age: "2",
   sex: "F",
-  adoption_status: false,)
+  )
 shelter2.pets.create!(
   image_path: "https://cdn.pixabay.com/photo/2015/11/17/13/13/dogue-de-bordeaux-1047521_1280.jpg",
   name: "Koa",
