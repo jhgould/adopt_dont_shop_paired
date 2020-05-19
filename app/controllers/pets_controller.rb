@@ -43,7 +43,7 @@ class PetsController < ApplicationController
        redirect_back(fallback_location: root_path)
     else
       Pet.destroy(params[:id])
-      favorites.remove_from_favorites(pet.id)
+      favorites.remove_from_favorites(pet.id.to_s)
       redirect_to "/pets"
     end
   end
