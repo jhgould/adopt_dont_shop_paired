@@ -40,6 +40,15 @@ RSpec.describe "pet delete", type: :feature do
     expect(page).to_not have_content(@pet.name)
   end
 
+  it "user can delete a pet with a non-pending application" do
+    application = create(:application)
+    PetApplication.create(application_id: application.id, pet_id: @pet.id)
+    visit "/pets"
+    click_link "delete-pet-#{@pet.id}"
+    expect(current_path).to eq("/pets")
+    expect(page).to_not have_content(@pet.name)
+  end
+
   it "user cannot delete a pet if it has a pending/approved application" do
     application = create(:application)
     PetApplication.create(application_id: application.id, pet_id: @pet.id)
@@ -63,7 +72,6 @@ RSpec.describe "pet delete", type: :feature do
     click_link "delete-pet-#{@pet.id}"
     expect(page).to have_content("Pets with approved/pending applications cannot be deleted")
     expect(page).to have_content(@pet.name)
-
   end
 
 end
