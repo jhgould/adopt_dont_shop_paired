@@ -36,4 +36,18 @@ RSpec.describe "user can create a pet", type: :feature do
     expect(page).to have_content("M")
   end
 
+  it "flash message indicates what fields were not filled in" do
+    visit("shelters/#{@shelter.id}/pets/new")
+
+    fill_in "name", with: "Kolohe"
+    fill_in "image_path", with: "https://cdn.pixabay.com/photo/2016/01/29/20/54/dog-1168663_1280.jpg"
+    fill_in "description", with: "cool dog"
+    fill_in "approximate_age", with: ""
+    fill_in "sex", with: ""
+    click_button "Create Pet"
+
+    expect(current_path).to eq("/shelters/#{@shelter.id}/pets/new")
+    expect(page).to have_content("Please fill in approximate_age, sex")
+  end
+
 end
