@@ -37,9 +37,15 @@ class PetsController < ApplicationController
   end
 
   def destroy
-    pet = Pet.destroy(params[:id])
-    favorites.remove_from_favorites(pet.id)
-    redirect_to "/pets"
+    pet = Pet.find(params[:id])
+    if pet.has_pending_application
+       flash[:notice] =  "Pets with approved/pending applications cannot be deleted"
+       redirect_back(fallback_location: root_path)
+    else
+      Pet.destroy(params[:id])
+      favorites.remove_from_favorites(pet.id)
+      redirect_to "/pets"
+    end
   end
 
   def pending
