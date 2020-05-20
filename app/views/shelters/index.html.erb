@@ -18,10 +18,10 @@
   <%= link_to "Sort by Shelter Name", "/shelters?order_by_name=true" %>
 </section>
 
-<% if @shelters.top_shelters %>
+<% if @top_shelters %>
   <section class="top_shelters">
     <h3>Higest Rated Shelters: </h3>
-    <% @shelters.top_shelters.each_with_index do |shelter, index| %>
+    <% @top_shelters.each_with_index do |shelter, index| %>
       <div>
         <%= "#{index + 1}:" %>
         <%= link_to "#{shelter.name}", "/shelters/#{shelter.id}", class:"top-shelter" %>

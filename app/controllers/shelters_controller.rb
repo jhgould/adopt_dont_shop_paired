@@ -8,6 +8,7 @@ class SheltersController < ApplicationController
     else
       @shelters = Shelter.all
     end
+    @top_shelters = Shelter.all.top_shelters
   end
 
   def show
