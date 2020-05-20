@@ -1,6 +1,16 @@
 # Adopt Don't Shop Paired Project
 BE Mod 2 Week 2/3 Pair Project
 
+## Description of our Project
+
+- Built a website for animal shelters.
+- Utilize MVC structure to build out features needed by the shelters to display, adopt, and apply for pets at the shelter.
+- Use active record to access data within the database and manipulate it so user can interface with it properly.
+- We utilize sad path and flash messaging to alert user if something is incomplete.
+- Sessions and cookies were also implemented to improve the users experience.
+- If we had more time we would want to improve on styling, add partials, and add user authentication.  
+
+
 ## Background and Description
 
 "Adopt Don't Shop Paired" is a fictitious pet adoption platform where visitors can favorite pets and apply to adopt their newest furry friend.
