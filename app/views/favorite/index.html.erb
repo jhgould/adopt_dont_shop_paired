@@ -27,3 +27,18 @@
   <% end %>
 </ul>
 </section>
+
+<% if @application_pets.has_approved_pets? %>
+  <section class="approved_pets">
+     <h3>Approved Pets: </h3>
+     <ul>
+       <% @application_pets.each do |pet| %>
+        <li>
+            <% if pet.has_approved_application? %>
+              <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+            <% end %>
+        </li>
+       <% end %>
+     </ul>
+  </section>
+<% end %>

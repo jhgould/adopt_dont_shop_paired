@@ -24,7 +24,7 @@
   <% @application.pets.each do |pet| %>
     <section class="pet-<%= pet.id%>">
       <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
-      <% if !pet.has_approved_application(@application.id) %>
+      <% if !pet.has_other_approved_application?(@application.id) %>
         <%= if pet.adoption_status == true
             link_to "Approve Application", "/applications/#{@application.id}/pets/#{pet.id}/pending", method: :patch
           else
