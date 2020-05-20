@@ -22,7 +22,6 @@
 
 
 
-
 <% if favorites.contents.any? { |pet_id| pet_id == @pet.id.to_s } %>
   <%= link_to "Remove From Favorites", "/favorites/#{@pet.id}", method: :delete %>
   <% else %>
