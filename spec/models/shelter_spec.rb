@@ -73,23 +73,34 @@ RSpec.describe Shelter do
       shelter2 = Shelter.create(name: "A")
       expect(Shelter.order_by_name).to eq([shelter2, shelter1])
     end
-    
+
     it "order_by_num_adopatable" do
       shelter1 = Shelter.create(name: "Z")
       shelter2 = Shelter.create(name: "A")
-      shelter1.pets.create!(
+      shelter1.pets.create(
         image_path: "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826_1280.jpg",
         name: "Bruno",
         approximate_age: "4",
         sex: "M",
         adoption_status: false)
-      shelter2.pets.create!(
+      shelter2.pets.create(
         image_path: "https://cdn.pixabay.com/photo/2015/06/08/15/02/pug-801826_1280.jpg",
         name: "Bruno",
         approximate_age: "4",
         sex: "M",
         adoption_status: true)
-      expect(Shelter.order_by_num_adopatable).to eq([shelter1, shelter2])
+      expect(Shelter.order_by_num_adopatable).to eq([shelter2])
+    end
+
+    it "top_shelters" do
+      shelter1 = Shelter.create(name: "Z")
+      shelter2 = Shelter.create(name: "B")
+      shelter3 = Shelter.create(name: "A")
+      shelter1.reviews.create!(title: "Great", rating: 3, content: "This place was awesome")
+      shelter2.reviews.create!(title: "Great", rating: 2, content: "This place was awesome")
+      shelter3.reviews.create!(title: "Great", rating: 4, content: "This place was awesome")
+      shelter3.reviews.create!(title: "Great", rating: 5, content: "This place was awesome")
+      expect(Shelter.top_shelters).to eq([shelter3, shelter1, shelter2])
     end
   end
 end

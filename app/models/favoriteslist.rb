@@ -24,4 +24,8 @@ class Favoriteslist
   def clear_all
     @contents.clear
   end
+
+  def has_pet?(pet)
+    @contents.any? { |pet_id| pet_id == pet.id.to_s }
+  end
 end

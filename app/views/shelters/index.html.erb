@@ -12,8 +12,20 @@
   <% end %>
 </section>
 
-<footer>
+<section>
   <%= link_to "New Shelter", "/shelters/new", class: "shelter_name" %> <br>
   <%= link_to "Sort by Number of Adoptable Pets", "/shelters?order_by_num_adopatable=true" %> <br>
   <%= link_to "Sort by Shelter Name", "/shelters?order_by_name=true" %>
-</footer>
+</section>
+
+<% if @shelters.top_shelters %>
+  <section class="top_shelters">
+    <h3>Higest Rated Shelters: </h3>
+    <% @shelters.top_shelters.each_with_index do |shelter, index| %>
+      <div>
+        <%= "#{index + 1}:" %>
+        <%= link_to "#{shelter.name}", "/shelters/#{shelter.id}", class:"top-shelter" %>
+      </div>
+    <% end %>
+  </section>
+<% end %>
