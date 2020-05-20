@@ -54,22 +54,26 @@ RSpec.describe "shelter show page", type: :feature do
 
   it "user can access the shelter show page from the shelter index" do
     visit "/shelters"
-    click_link "#{@shelter1.name}"
-    expect(current_path).to eq("/shelters/#{@shelter1.id}")
+    within ".shelter_list" do
+      click_link "#{@shelter1.name}"
+      expect(current_path).to eq("/shelters/#{@shelter1.id}")
+    end
 
     visit "/shelters"
-    click_link "#{@shelter2.name}"
-    expect(current_path).to eq("/shelters/#{@shelter2.id}")
+    within ".shelter_list" do
+      click_link "#{@shelter2.name}"
+      expect(current_path).to eq("/shelters/#{@shelter2.id}")
+    end
   end
 
   it "user can access the shelter show page from the pets index" do
     visit "/pets"
-    click_link "#{@shelter1.name}"
-    expect(current_path).to eq("/shelters/#{@shelter1.id}")
+      click_link "#{@shelter1.name}"
+      expect(current_path).to eq("/shelters/#{@shelter1.id}")
 
     visit "/pets"
-    click_link "#{@shelter2.name}"
-    expect(current_path).to eq("/shelters/#{@shelter2.id}")
+      click_link "#{@shelter2.name}"
+      expect(current_path).to eq("/shelters/#{@shelter2.id}")
   end
 
   it "user can see all reviews for a given shelter" do

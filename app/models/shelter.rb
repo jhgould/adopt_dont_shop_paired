@@ -17,6 +17,13 @@ class Shelter < ApplicationRecord
     order("name")
   end
 
+  def self.top_shelters
+    joins(:reviews)
+    .group(:id)
+    .order('avg(reviews.rating) DESC')
+    .limit(3)
+  end
+
   def has_pending_pets
     Shelter.joins(:pets)
             .where("shelters.id = ?", id)

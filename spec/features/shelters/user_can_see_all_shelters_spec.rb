@@ -69,7 +69,24 @@ RSpec.describe "shelters index page", type: :feature do
         expect(page.all('.shelter').last).to have_content(@shelter2.name)
       end
     end
+  end
 
+  it "top 3 rated shelters" do
+    shelter3 = create(:shelter)
+    shelter4 = create(:shelter)
+    @shelter1.reviews.create!(title: "Great", rating: 5, content: "This place was awesome")
+    @shelter1.reviews.create!(title: "Great", rating: 4, content: "This place was awesome")
+    @shelter1.reviews.create!(title: "Great", rating: 5, content: "This place was awesome")
+    @shelter2.reviews.create!(title: "Great", rating: 2, content: "This place was awesome")
+    @shelter2.reviews.create!(title: "Great", rating: 3, content: "This place was awesome")
+    shelter3.reviews.create!(title: "Great", rating: 2, content: "This place was awesome")
+    shelter4.reviews.create!(title: "Great", rating: 1, content: "This place was awesome")
+    visit "/shelters"
+    within ".top_shelters" do
+      expect(page).to have_content("1: #{@shelter1.name}")
+      expect(page).to have_content("2: #{@shelter2.name}")
+      expect(page).to have_content("3: #{shelter3.name}")
+    end
   end
 
 end
