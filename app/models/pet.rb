@@ -14,7 +14,7 @@ class Pet < ApplicationRecord
   end
 
   def self.order_by_adoption_status
-    order("adoption_status DESC NULLS LAST ")
+    order("adoption_status DESC NULLS LAST")
   end
 
   def self.all_with_application
@@ -27,15 +27,16 @@ class Pet < ApplicationRecord
   end
 
   def has_other_approved_application?(app_id)
-    applications.any? do |application|
-      application.id != app_id && pet_applications.where(application_id: application.id, pet_id: id).first.approved == true
-    end
+    PetApplication.where("pet_id = ?", id)
+                    .where("application_id <> ?", app_id)
+                    .where(approved: true)
+                    .exists?
   end
 
   def has_approved_application?
-    pet_applications.any? do |application|
-      application.approved == true
-    end
+    Pet.joins(:pet_applications)
+        .where("pets.id = ? AND pet_applications.approved = true", id)
+        .exists?
   end
 
 

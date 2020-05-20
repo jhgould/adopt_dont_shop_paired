@@ -54,7 +54,10 @@ RSpec.describe Pet do
 
     describe "instance methods" do
       it "has_other_approved_application" do
-        expect(@pet1.has_other_approved_application?(@application.id)).to eq(false)
+        # expect(@pet1.has_other_approved_application?(@application.id)).to eq(false)
+        application2 = create(:application)
+        PetApplication.create(application_id: application2.id, pet_id: @pet1.id, approved: true)
+        expect(@pet1.has_other_approved_application?(@application.id)).to eq(true)
       end
       it "has_approved_application" do
         expect(@pet1.has_approved_application?).to eq(true)
